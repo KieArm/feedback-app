@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 
 const FeedbackContext = createContext()
+const url = 'http://localhost:5000'
 
 export const FeedbackProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -15,14 +16,14 @@ export const FeedbackProvider = ({ children }) => {
   }, [])
 
   const fetchFeedback = async () => {
-    const response = await fetch('http://localhost:5000/feedback?_sort=id&_order=desc')
+    const response = await fetch(`${url}/feedback?_sort=id&_order=desc`)
     const data = await response.json()
     setFeedback(data)
     setIsLoading(false)
   }
 
   const addFeedback = async (newFeedback) => {
-    const response = await fetch('http://localhost:5000/feedback', {
+    const response = await fetch(`${url}/feedback`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export const FeedbackProvider = ({ children }) => {
 
   const deleteFeedback = async (id) => {
     if (window.confirm('Are you sure you want to delete?')) {
-      await fetch(`http://localhost:5000/feedback/${id}`, { method: 'DELETE' })
+      await fetch(`${url}/feedback/${id}`, { method: 'DELETE' })
 
       setFeedback(feedback.filter((item) => item.id !== id))
     }
