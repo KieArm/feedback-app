@@ -247,3 +247,20 @@ input:focus {
     width: 80%;
   }
 }
+
+.loading-icon {
+  margin: auto;
+  display: block;
+  color: #ff6a95;
+  font-size: 2rem;
+  animation: animate 2s infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}

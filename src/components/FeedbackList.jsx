@@ -1,18 +1,18 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { useContext } from 'react'
-import FeedbackItem from './FeedbackItem'
-import Spinner from './shared/Spinner'
-import FeedbackContext from '../context/FeedbackContext'
+import { motion, AnimatePresence } from 'framer-motion';
+import { useContext } from 'react';
+import FeedbackItem from './FeedbackItem';
+import FeedbackContext from '../context/FeedbackContext';
+import { FiCommand } from 'react-icons/fi';
 
 function FeedbackList() {
-  const { feedback, isLoading } = useContext(FeedbackContext)
+  const { feedback, isLoading } = useContext(FeedbackContext);
 
   if (!isLoading && (!feedback || feedback.length === 0)) {
-    return <p>No feedback yet</p>
+    return <p>No feedback yet</p>;
   }
 
   return isLoading ? (
-    <Spinner />
+    <FiCommand className='loading-icon' />
   ) : (
     <div className='feedback-list'>
       <AnimatePresence>
@@ -23,7 +23,7 @@ function FeedbackList() {
         ))}
       </AnimatePresence>
     </div>
-  )
+  );
 }
 
-export default FeedbackList
+export default FeedbackList;
