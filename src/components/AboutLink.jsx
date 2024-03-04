@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function AboutIconLink() {
+function AboutLink() {
   return (
     <div className='about-link'>
       <Link to='/about'>About</Link>
@@ -8,4 +8,4 @@ function AboutIconLink() {
   );
 }
 
-export default AboutIconLink;
+export default AboutLink;

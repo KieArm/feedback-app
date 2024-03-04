@@ -1,58 +1,58 @@
-import { useState, useContext, useEffect } from 'react'
-import RatingSelect from './RatingSelect'
-import Card from './shared/Card'
-import Button from './shared/Button'
-import FeedbackContext from '../context/FeedbackContext'
+import { useState, useContext, useEffect } from 'react';
+import RatingSelect from './RatingSelect';
+import Card from './shared/Card';
+import Button from './shared/Button';
+import FeedbackContext from '../context/FeedbackContext';
 
 function FeedbackForm() {
-  const [text, setText] = useState('')
-  const [rating, setRating] = useState(10)
-  const [btnDisabled, setBtnDisabled] = useState(true)
-  const [message, setMessage] = useState('')
+  const [text, setText] = useState('');
+  const [rating, setRating] = useState(10);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [message, setMessage] = useState('');
 
-  const { addFeedback, feedbackEdit, updateFeedback } = useContext(FeedbackContext)
+  const { addFeedback, feedbackEdit, updateFeedback } = useContext(FeedbackContext);
 
   useEffect(() => {
     if (feedbackEdit.edit === true) {
-      setBtnDisabled(false)
-      setText(feedbackEdit.item.text)
-      setRating(feedbackEdit.item.rating)
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
     }
-  }, [feedbackEdit])
+  }, [feedbackEdit]);
 
   const handleTextChange = ({ target: { value } }) => {
     if (value === '') {
-      setBtnDisabled(true)
-      setMessage(null)
+      setBtnDisabled(true);
+      setMessage(null);
     } else if (value.trim().length <= 10) {
-      setBtnDisabled(true)
-      setMessage('Your message must be at least 10 characters long.')
+      setBtnDisabled(true);
+      setMessage('Your message must be at least 10 characters long.');
     } else {
-      setMessage(null)
-      setBtnDisabled(false)
+      setMessage(null);
+      setBtnDisabled(false);
     }
-    setText(value)
-  }
+    setText(value);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (text.trim().length > 10) {
       const newFeedback = {
         text,
         rating,
-      }
+      };
 
       if (feedbackEdit.edit === true) {
-        updateFeedback(feedbackEdit.item.id, newFeedback)
+        updateFeedback(feedbackEdit.item.id, newFeedback);
       } else {
-        addFeedback(newFeedback)
+        addFeedback(newFeedback);
       }
 
-      setBtnDisabled(true)
-      setRating(10)
-      setText('')
+      setBtnDisabled(true);
+      setRating(10);
+      setText('');
     }
-  }
+  };
 
   return (
     <Card>
@@ -62,14 +62,14 @@ function FeedbackForm() {
         <div className='input-group'>
           <input onChange={handleTextChange} type='text' placeholder='Write a review' value={text} />
           <Button type='submit' isDisabled={btnDisabled}>
-            Send
+            {feedbackEdit.edit ? 'Update' : 'Send'}
           </Button>
         </div>
 
         {message && <div className='message'>{message}</div>}
       </form>
     </Card>
-  )
+  );
 }
 
-export default FeedbackForm
+export default FeedbackForm;
